@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'com.novoda.bintray-release'
 }
 
 android {
@@ -30,6 +32,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+}
+
+
+publish {
+    userOrg = 'openpix'//bintray.com用户名
+    groupId = 'com.openpix'//jcenter上的路径
+    artifactId = 'op-screenshot'//项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'issue android screenshot library'//描述，不重要
+    website = 'https://github.com/openpix/op-screenshot'//网站，最好有，不重要
 }
 
 dependencies {

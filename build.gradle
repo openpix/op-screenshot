@@ -6,8 +6,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.0-beta05"
+        classpath "com.android.tools.build:gradle:3.6.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.novoda:bintray-release:+' // 新增
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -18,6 +19,11 @@ allprojects {
     repositories {
         google()
         jcenter()
+    }
+
+    tasks.withType(Javadoc) { // 新增
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
     }
 }
 
