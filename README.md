@@ -33,3 +33,8 @@ please see
 
 - 2020-09-10
 - first issue
+
+## 1.0.1
+
+- minSDK version support to 14
+- add shot activity and shot view static function.
