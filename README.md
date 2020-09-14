@@ -11,7 +11,7 @@
 1. build.gradle
 
 ```java
-implementation 'com.openpix:op-screenshot:1.0.0'
+implementation 'com.openpix:op-screenshot:1.0.1'
 ```
 
 2. permission
