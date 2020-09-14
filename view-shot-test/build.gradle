@@ -1,8 +1,8 @@
 plugins {
-    id 'com.android.library'
+    id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-    id 'com.novoda.bintray-release'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -10,13 +10,13 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        minSdkVersion 14
+        applicationId "com.openpix.screenshot.test"
+        minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -34,23 +34,16 @@ android {
     }
 }
 
-
-publish {
-    userOrg = 'openpix'//bintray.com用户名
-    groupId = 'com.openpix'//jcenter上的路径
-    artifactId = 'op-screenshot'//项目名称
-    publishVersion = '1.0.1'//版本号
-    desc = 'minSDK support 14,add shot view and shot activity function'//描述，不重要
-    website = 'https://github.com/openpix/op-screenshot'//网站，最好有，不重要
-}
-
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation project(path: ':op-screenshot-library')
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+//    implementation 'com.abangfadli.shotwatch:shotwatch:1.0.4'
 }
