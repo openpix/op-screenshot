@@ -38,3 +38,8 @@ please see
 
 - minSDK version support to 14
 - add shot activity and shot view static function.
+
+## 1.0.2
+
+- 2020-10-16
+- shot view support >= android 6.0
