@@ -39,8 +39,8 @@ publish {
     userOrg = 'openpix'//bintray.com用户名
     groupId = 'com.openpix'//jcenter上的路径
     artifactId = 'op-screenshot'//项目名称
-    publishVersion = '1.0.1'//版本号
-    desc = 'minSDK support 14,add shot view and shot activity function'//描述，不重要
+    publishVersion = '1.0.2'//版本号
+    desc = 'shot view support > android 6.0'//描述，不重要
     website = 'https://github.com/openpix/op-screenshot'//网站，最好有，不重要
 }
 

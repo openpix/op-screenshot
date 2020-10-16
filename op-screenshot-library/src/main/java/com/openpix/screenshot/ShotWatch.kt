@@ -4,15 +4,19 @@ import android.app.Activity
 import android.content.ContentResolver
 import android.database.ContentObserver
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Looper
 import android.provider.MediaStore
+import android.util.Log
+import android.view.PixelCopy
 import android.view.View
 import android.view.View.MeasureSpec
-
-
-
+import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 
 
 /**
@@ -52,44 +56,70 @@ class ShotWatch(contentResolver: ContentResolver, listener: (ScreenshotData)->Un
         /**
          * shot the View to Bitmap, Visible and Invisible
          */
-        fun shortView(v: View?): Bitmap? {
+        fun shotView(v: View?, window: Window, bitmapCallback:(bitmap:Bitmap?)->Unit){
             if (null == v) {
-                return null
+                return
             }
-            v.isDrawingCacheEnabled = true
-            v.buildDrawingCache()
-            if (Build.VERSION.SDK_INT >= 11) {
-                v.measure(
-                    MeasureSpec.makeMeasureSpec(
-                        v.width,
-                        MeasureSpec.EXACTLY
-                    ), MeasureSpec.makeMeasureSpec(
-                        v.height, MeasureSpec.EXACTLY
+            var b: Bitmap?
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                b = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888, true);
+                // 获取layout的位置
+                val location = IntArray(2)
+                v.getLocationInWindow(location)
+                PixelCopy.request(window,
+                    Rect(location[0], location[1], location[0] + v.width, location[1] + v.height),
+                    b, { copyResult ->
+                        try {
+                            if (copyResult == PixelCopy.SUCCESS) {
+                                bitmapCallback?.let {
+                                    it.invoke(b)
+                                }
+                            } else {
+                            }
+                        } catch (t: Throwable) {
+                        }
+                    }, Handler(Looper.getMainLooper()))
+            }
+            else {
+                v.isDrawingCacheEnabled = true
+                v.buildDrawingCache()
+                if (Build.VERSION.SDK_INT >= 11) {
+                    v.measure(
+                        MeasureSpec.makeMeasureSpec(
+                            v.width,
+                            MeasureSpec.EXACTLY
+                        ), MeasureSpec.makeMeasureSpec(
+                            v.height, MeasureSpec.EXACTLY
+                        )
                     )
-                )
-                v.layout(
-                    v.x.toInt(), v.y.toInt(),
-                    v.x.toInt() + v.measuredWidth,
-                    v.y.toInt() + v.measuredHeight
-                )
-            } else {
-                v.measure(
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
-                )
-                v.layout(0, 0, v.measuredWidth, v.measuredHeight)
-            }
-            val b = Bitmap.createBitmap(
-                v.drawingCache,
-                0,
-                0,
-                v.measuredWidth,
-                v.measuredHeight
-            )
+                    v.layout(
+                        v.x.toInt(), v.y.toInt(),
+                        v.x.toInt() + v.measuredWidth,
+                        v.y.toInt() + v.measuredHeight
+                    )
+                } else {
+                    v.measure(
+                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+                    )
 
-            v.isDrawingCacheEnabled = false
-            v.destroyDrawingCache()
-            return b
+                    v.layout(0, 0, v.measuredWidth, v.measuredHeight)
+                }
+
+                var width = if (v.measuredWidth > 0 ) v.measuredWidth else 720
+                val height = if (v.measuredHeight > 0) v.measuredHeight else 1080
+                b = Bitmap.createBitmap(
+                    v.drawingCache,
+                    0,
+                    0,
+                    width,
+                    height
+                )
+
+                v.isDrawingCacheEnabled = false
+                v.destroyDrawingCache()
+                bitmapCallback?.let { it.invoke(b) }
+            }
         }
 
         /**
