@@ -25,6 +25,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        debug {
+            File strFile = new File("../openpix.jks")
+            storeFile file(strFile)
+            storePassword "tpx123"
+            keyAlias "openpix"
+            keyPassword "tpx123"
+            v2SigningEnabled false
+        }
+
+        release {
+            File strFile = new File("../openpix.jks")
+            storeFile file(strFile)
+            storePassword "tpx123"
+            keyAlias "openpix"
+            keyPassword "tpx123"
+            v2SigningEnabled false
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

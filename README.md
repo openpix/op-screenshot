@@ -27,6 +27,16 @@ add it to `AndroidManifest.xml`
 please see
 [MainActivity.kt](./app/src/main/java/com/openpix/screenshot/test/MainActivity.kt)
 
+
+
+## Add proguard.cfg
+
+```bash
+-keep public class * extends android.database.ContentObserver
+```
+
+
+
 # Release Version
 
 ## 1.0.0
