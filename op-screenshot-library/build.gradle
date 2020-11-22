@@ -39,17 +39,15 @@ publish {
     userOrg = 'openpix'//bintray.com用户名
     groupId = 'com.openpix'//jcenter上的路径
     artifactId = 'op-screenshot'//项目名称
-    publishVersion = '1.0.2'//版本号
-    desc = 'shot view support > android 6.0'//描述，不重要
+    publishVersion = '1.0.3'//版本号
+    desc = 'update android library version'//描述，不重要
     website = 'https://github.com/openpix/op-screenshot'//网站，最好有，不重要
 }
 
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.core:core-ktx:1.2.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

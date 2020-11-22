@@ -10,13 +10,10 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import android.provider.MediaStore
-import android.util.Log
 import android.view.PixelCopy
 import android.view.View
 import android.view.View.MeasureSpec
 import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 
 
 /**

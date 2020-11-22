@@ -53,3 +53,8 @@ please see
 
 - 2020-10-16
 - shot view support >= android 6.0
+
+## 1.0.3
+
+- 2020-11-22
+- update android library version
